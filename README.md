@@ -1,18 +1,63 @@
-# payment_api
-Laravel (Passport) API for a peer to peer payment app. Please note it's just an in-memory solution without actually implementing an external payment API. The functionalities are: adding users to the app, users depositing money into the app, users sending money to other app users, users checking their balance in the app. 
+# Datamax_API
+This application is in 3 modules
+
+================================ MODULE 1 ===========================================
+=====================================================================================
+It connects to https://anapioficeandfire.com/. API and serialized the results. You can pass a name parameter if you want to fetch only a specific book or call the end-point without passing any parameter. below are the two endpoints
+
+End-point 1
+http://localhost:8000/api/external-books/
+This will return lists of books
 
 
-Endpoints are:
-http://localhost:8000/api/register/
+End-point 2
+http://localhost:8000/api/external-books?name=nameOfBook
+This will return a specific book
 
-http://localhost:8000/api/login/
+================================ MODULE 2 ===========================================
+=====================================================================================
+A CRUD API
 
-These routes required authentication [We used Laravel/Passport to manage the token]
-add the the token as an Authorization header [Bearer Token ]
+END-POINT VERBS 
+Create => POST Request
+Read => GET Request
+Update => PUT Request
+Delete => DELETE Request
+Show => GET Request
 
-http://localhost:8000/api/deposit
+END-POINTS
+The CREATE AND READ end-point is 
+http://localhost:8000/api/v1/books/
 
-http://localhost:8000/api/transfer
+the UPDATE, DELETE AND SHOW end-point
+http://localhost:8000/api/v1/books/1
 
-http://localhost:8000/api/balance [This is the only GET request ]
 
+================================ MODULE 3 ===========================================
+=====================================================================================
+
+A front-end view for reading, editing, updating and deleting books
+
+N.B. you can comment the javaScript for updating and deleting if you do not wish to use javascript. The application will still work perfectly. It's just an added functionality that I feel could make the application user friendly
+
+READ FEATURE GET Request
+http://localhost:8000/
+
+This will display books record 10 per request call. Click on the load more button to fetch the next 10 records
+
+
+EDIT FEATURE GET REQUEST
+http://localhost:8000/edit/1
+
+This will display a single book that is editable within a form. You can edit each field as you wish.
+
+
+UPDATE FEATURE PUT
+http://localhost:8000/update/4
+
+This will update the record of a specific book
+
+DELETE FEATURE PUT
+http://localhost:8000/delete_book/4
+
+This will delete the record of a specific book

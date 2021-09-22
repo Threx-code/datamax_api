@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\v1\BookController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BookController::class, 'front_end']);
+Route::get('fetch_books', [BookController::class, 'fetch_books'])->name('fetch_books');
+Route::get('edit/{id}', [BookController::class, 'edit'])->name('edit/');
+Route::put('update/{id}', [BookController::class, 'update'])->name('update/');
+Route::delete('delete_book/{id}', [BookController::class, 'destroy'])->name('delete_book/');

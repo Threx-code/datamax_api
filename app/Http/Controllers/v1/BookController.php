@@ -56,6 +56,31 @@ class BookController extends Controller
         ], 200);
     }
 
+
+    /**
+     * [front_end return a view to the front-end]
+     * @return [type] [description]
+     */
+    public function front_end()
+    {
+        return view('books.index');
+    }
+
+    /**
+     * [fetch_books fetch books 10 each request]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function fetch_books(Request $request)
+    {
+        $books = Book::orderBy('id', 'desc')
+            ->offset($request->start)
+            ->take($request->limit)
+            ->get();
+
+        echo view('books.load-books', compact('books'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -185,7 +210,8 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+         $book = Book::where('id', $id)->get()->first();
+         echo view('books.edit_book', compact('book'));
     }
 
     /**
@@ -250,13 +276,13 @@ class BookController extends Controller
     public function destroy($id)
     {
         $book = "No book to delete";
-        $this->book = Book::where('id', $id)->get();
+        $this->books = Book::where('id', $id)->get()->first();
          /**
          *  we want to make sure that the $this->book is not empty so that we can return a success status and 200 status code
          */
-        if(!empty(json_decode($this->book, true))){
-            $book = "The book " . $this->book[0]->name . " was deleted successfully";
-            $this->book->delete();
+        if(!empty(json_decode($this->books, true))){
+            $book = "The book " . $this->books->name . " was deleted successfully";
+            $this->books->delete();
         }
 
         /**

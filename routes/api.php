@@ -22,4 +22,5 @@ Route::get('v1/books/{book}', [BookController::class, 'show']);
 Route::put('v1/books/{id}', [BookController::class, 'update']);
 Route::delete('v1/books/{id}', [BookController::class, 'destroy']);
 
-
+/*========== books routes =============================================*/
+Route::get('external-books', [IceAndFireAPIController::class, 'index']);
