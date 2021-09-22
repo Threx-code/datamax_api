@@ -34,7 +34,7 @@ http://localhost:8000/api/v1/books/1
 
 
 ================================ MODULE 3
-
+=====================================================================================
 A front-end view for reading, editing, updating and deleting books
 
 N.B. you can comment the javaScript for updating and deleting if you do not wish to use javascript. The application will still work perfectly. It's just an added functionality that I feel could make the application user friendly
