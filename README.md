@@ -1,7 +1,7 @@
 # Datamax_API
 This application is in 3 modules
 
-================================ MODULE 1 ===========================================
+================================ MODULE 1
 =====================================================================================
 It connects to https://anapioficeandfire.com/. API and serialized the results. You can pass a name parameter if you want to fetch only a specific book or call the end-point without passing any parameter. below are the two endpoints
 
@@ -14,7 +14,7 @@ End-point 2
 http://localhost:8000/api/external-books?name=nameOfBook
 This will return a specific book
 
-================================ MODULE 2 ===========================================
+================================ MODULE 2
 =====================================================================================
 A CRUD API
 
@@ -33,8 +33,7 @@ the UPDATE, DELETE AND SHOW end-point
 http://localhost:8000/api/v1/books/1
 
 
-================================ MODULE 3 ===========================================
-=====================================================================================
+================================ MODULE 3
 
 A front-end view for reading, editing, updating and deleting books
 
