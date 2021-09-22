@@ -5,7 +5,6 @@ namespace App\Http\Controllers\v1;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
-use App\Http\Requests\DeleteBookRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 
@@ -201,19 +200,22 @@ class BookController extends Controller
          // validate that the required parameters are properly entered
         // this ensure that no sql injection and all required parameters are entered before submitting to the database
         if($request->validated()){
-            $this->books = Book::where('id', $id)
-            ->
-            ->update([
-                'name' => $request->name,
-                'isbn' => $request->isbn,
-                'authors' => $request->authors,
-                'country' => $request->country,
-                'number_of_pages' => $request->number_of_pages,
-                'publisher' => $request->publisher,
-                'release_date' => $request->release_date
+            $this->books = Book::where('id', $id)->get()->first();
+
+            /**
+             *  this allows us to be able to update any of the columns either as mass update or single column update
+             */
+            $this->books->update([
+                'name' => $request->name ?? $this->books->name,
+                'isbn' => $request->isbn ?? $this->books->isbn,
+                'authors' => $request->authors ?? $this->books->authors,
+                'country' => $request->country ?? $this->books->country,
+                'number_of_pages' => $request->number_of_pages ?? $this->books->number_of_pages,
+                'publisher' => $request->publisher ?? $this->books->publisher,
+                'release_date' => $request->release_date ?? $this->books->release_date
             ]);
 
-            // return a json response of 201 created with the data to tell the user that the data has been succesfully created. 
+            // return a json response of 200 success with the data to tell the user that the data has been succesfully created. 
             // 
             //  We returned the request->all() because the requirement says just the data in the create request. 
             //  
@@ -224,8 +226,18 @@ class BookController extends Controller
             return response()->json([
                 "status_code" => 200,
                 "status" => "success",
-                "data" => [["books"=>$request->all()]]
-            ], 201);
+                "message" => "The book ". $request->name . " was updated successfully",
+                "data" => [
+                    'id' => $this->books->id,
+                    'name' => $this->books->name,
+                    'isbn' => $this->books->isbn,
+                    'authors' => $this->books->authors,
+                    'country' => $this->books->country,
+                    'number_of_pages' => $this->books->number_of_pages,
+                    'publisher' => $this->books->publisher,
+                    'release_date' => $this->books->release_date
+                ]
+            ], 200);
         }
     }
 
@@ -244,7 +256,7 @@ class BookController extends Controller
          */
         if(!empty(json_decode($this->book, true))){
             $book = "The book " . $this->book[0]->name . " was deleted successfully";
-            Book::where('id', $id)->delete();
+            $this->book->delete();
         }
 
         /**

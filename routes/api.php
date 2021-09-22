@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\BookController;
+use App\Http\Controllers\IceAndFireAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,10 @@ use App\Http\Controllers\v1\BookController;
 |
 */
 
-/*========== books route =============================================*/
+/*========== books routes =============================================*/
 Route::resource('v1/books/', BookController::class);
 Route::get('v1/books/{book}', [BookController::class, 'show']);
 Route::put('v1/books/{id}', [BookController::class, 'update']);
 Route::delete('v1/books/{id}', [BookController::class, 'destroy']);
+
+
